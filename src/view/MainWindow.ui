@@ -36,43 +36,7 @@
        <property name="leftMargin">
         <number>10</number>
        </property>
-       <item row="0" column="1">
-        <widget class="QToolButton" name="brushBtn">
-         <property name="text">
-          <string>画刷</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QToolButton" name="ellipseBtn">
-         <property name="text">
-          <string>椭圆</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QToolButton" name="rectBtn">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>矩形</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QToolButton" name="penBtn">
          <property name="text">
           <string>笔</string>
@@ -88,7 +52,17 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="1" column="1">
+        <widget class="QToolButton" name="brushBtn">
+         <property name="text">
+          <string>画刷</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
         <widget class="QToolButton" name="lineBtn">
          <property name="text">
           <string>直线</string>
@@ -97,6 +71,55 @@
           <bool>true</bool>
          </property>
         </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QToolButton" name="rectBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>矩形</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="QToolButton" name="ellipseBtn">
+         <property name="text">
+          <string>椭圆</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QPushButton" name="preColorBtn">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QPushButton" name="backColorBtn">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QComboBox" name="brushSizeBtn"/>
        </item>
       </layout>
      </widget>

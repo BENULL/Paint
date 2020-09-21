@@ -22,8 +22,8 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
     def _initParam(self):
         self.drawing = False
         self.lastPoint = QPoint()
-        self.brushSize = 2
-        self.brushColor = Qt.black
+        self.brushSize = 3
+        self.brushColor = Qt.red
 
     def _getToolBoxStatus(self):
         pass
@@ -33,7 +33,7 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
 
         if event.button() == Qt.LeftButton:
             self.drawing = True
-            self.lastPoint = event.pos()
+            self.lastPoint = self._getPosFromGlobal(event.pos())
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> None:
         if event.button() == Qt.LeftButton:
@@ -42,27 +42,26 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
     def mouseMoveEvent(self, event: QMouseEvent) -> None:
 
         if event.buttons() and Qt.LeftButton and self.drawing:
-            # creating painter object
             painter = QPainter(self.img)
-
-            # set the pen of the painter
+            painter.setRenderHint(QPainter.Antialiasing,True)
             painter.setPen(QPen(self.brushColor, self.brushSize,
                                 Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+            boardPos = self._getPosFromGlobal(event.pos())
+            painter.drawLine(self.lastPoint,boardPos )
 
-            # draw line from the last point of cursor to the current point
-            # this will draw only one step
-            painter.drawLine(self.lastPoint, event.pos())
-
-            # change the last point
-            self.lastPoint = event.pos()
+            self.lastPoint = boardPos
             print(self.lastPoint)
-            # update
             self.update()
 
     def paintEvent(self, event: QPaintEvent) -> None:
-        canvasPainter = QPainter(self)
-        canvasPainter.setRenderHint(QPainter.Antialiasing,True)
-        canvasPainter.drawImage(self.rect(), self.img, self.img.rect())
+        pix = QPixmap.fromImage(self.img)
+        self.board.setPixmap(pix)
+
+
+    def _getPosFromGlobal(self,pos):
+        globalPos = self.mapToGlobal(pos)
+        boardPos = self.board.mapFromGlobal(globalPos)
+        return boardPos
 
     def _setDefaultBoard(self):
         self.img = QImage(self.scrollAreaWidgetContents.size(), QImage.Format_RGB32)
@@ -74,6 +73,39 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.actionClear.triggered.connect(self._clear)
         self.actionSave.triggered.connect(self._save)
         self.actionOpenImg.triggered.connect(self._openImg)
+        self.preColorBtn.clicked.connect(self._choosePreColor)
+        self.backColorBtn.clicked.connect(self._chooseBackColor)
+        self.brushSizeBtn.currentIndexChanged.connect(self._chooseBrushSize)
+        self.lineBtn.clicked.connect(self._toolBoxClicked)
+        self.ellipseBtn
+
+    def _drawLine(self):
+        pass
+
+    def _drawEllipse(self):
+        pass
+
+    def _drawRect(self):
+        pass
+
+
+    def _toolBoxClicked(self):
+        pass
+
+
+    def _chooseBrushSize(self):
+        pass
+
+    def _choosePreColor(self):
+        self.preColorBtn.setStyleSheet("background-color:%s" % self._getColor())
+
+    def _chooseBackColor(self):
+        self.backColorBtn.setStyleSheet("background-color:%s" % self._getColor())
+
+    def _getColor(self):
+        color = QColorDialog.getColor()
+        colorName = color.name()
+        return colorName
 
     def _refreshButtons(self):
         self.penBtn.setChecked(False)
@@ -87,7 +119,6 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.board.resize(pix.size())
         self.board.setPixmap(pix)
         self.scrollAreaWidgetContents.resize(pix.size())
-        self.update()
 
     def _save(self):
         filePath, _ = QFileDialog.getSaveFileName(self, "保存图像", "","PNG(*.png);;JPEG(*.jpg *.jpeg);;All Files(*.*) ")
