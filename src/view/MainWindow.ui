@@ -39,7 +39,7 @@
        <item row="1" column="0">
         <widget class="QToolButton" name="penBtn">
          <property name="text">
-          <string>笔</string>
+          <string>画笔</string>
          </property>
          <property name="iconSize">
           <size>
@@ -53,16 +53,16 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QToolButton" name="brushBtn">
+        <widget class="QToolButton" name="bucketBtn">
          <property name="text">
-          <string>画刷</string>
+          <string>喷桶</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="4" column="0">
         <widget class="QToolButton" name="lineBtn">
          <property name="text">
           <string>直线</string>
@@ -72,7 +72,7 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="4" column="1">
         <widget class="QToolButton" name="rectBtn">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -88,7 +88,23 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="0" colspan="2">
+       <item row="5" column="1">
+        <widget class="QToolButton" name="eraseButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>橡皮擦</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="2">
         <widget class="QToolButton" name="ellipseBtn">
          <property name="text">
           <string>椭圆</string>
@@ -99,7 +115,68 @@
         </widget>
        </item>
        <item row="7" column="0">
+        <widget class="QComboBox" name="penSizeBtn">
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>6</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>8</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>10</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>12</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>14</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLabel" name="pxLabel">
+         <property name="text">
+          <string>px</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
         <widget class="QPushButton" name="preColorBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #000000</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -111,15 +188,15 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="8" column="1">
         <widget class="QPushButton" name="backColorBtn">
+         <property name="styleSheet">
+          <string notr="true">background-color:#FFFFFF</string>
+         </property>
          <property name="text">
           <string/>
          </property>
         </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QComboBox" name="brushSizeBtn"/>
        </item>
       </layout>
      </widget>
@@ -137,7 +214,7 @@
        <bool>true</bool>
       </property>
       <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
+       <enum>Qt::TabFocus</enum>
       </property>
       <property name="lineWidth">
        <number>0</number>

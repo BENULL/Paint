@@ -15,45 +15,59 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         super(PaintBoard, self).__init__(*args,**kwargs)
         self.setupUi(self)
         #uic.loadUi('./view/MainWindow.ui',self)
-        self._establishConnections()
-        self._setDefaultBoard()
         self._initParam()
+        self._setDefaultBoard()
+        self._establishConnections()
+        self._initPainter()
+
+    def _initPainter(self):
+        painter = QPainter(self.img)
+        painter.setRenderHint(QPainter.Antialiasing, True)
+        painter.setPen(QPen(self.penColor, self.penSize,Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+        return painter
+
 
     def _initParam(self):
         self.drawing = False
         self.lastPoint = QPoint()
-        self.brushSize = 3
-        self.brushColor = Qt.red
+        self.endPoint = QPoint()
+        self.penSize = 2
+        self.penColor = Qt.black
+        self.preColor = Qt.black
+        self.backColor = Qt.white
+        self.toolBtns = [self.penBtn,self.rectBtn,self.bucketBtn,self.lineBtn,self.ellipseBtn,self.eraseButton]
+        self.toolBtnEvents = [self._drawPen,self._drawRect,self._drawBucket,self._drawLine,self._drawEllipse,self._drawErase]
 
     def _getToolBoxStatus(self):
         pass
 
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
-
         if event.button() == Qt.LeftButton:
-            self.drawing = True
-            self.lastPoint = self._getPosFromGlobal(event.pos())
+            self.penColor = self.preColor
+        elif event.button() == Qt.RightButton:
+            self.penColor = self.backColor
+
+        self.drawing = True
+        self.lastPoint = self._getPosFromGlobal(event.pos())
+        self.startPoint = self._getPosFromGlobal(event.pos())
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> None:
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.LeftButton or event.button() == Qt.RightButton:
+            self.endPoint = self._getPosFromGlobal(event.pos())
             self.drawing = False
+            self.update()
+
+
 
     def mouseMoveEvent(self, event: QMouseEvent) -> None:
 
         if event.buttons() and Qt.LeftButton and self.drawing:
-            painter = QPainter(self.img)
-            painter.setRenderHint(QPainter.Antialiasing,True)
-            painter.setPen(QPen(self.brushColor, self.brushSize,
-                                Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
-            boardPos = self._getPosFromGlobal(event.pos())
-            painter.drawLine(self.lastPoint,boardPos )
-
-            self.lastPoint = boardPos
-            print(self.lastPoint)
+            [toolBtnEvent(event) for toolBtn,toolBtnEvent in  zip(self.toolBtns,self.toolBtnEvents) if toolBtn.isChecked()]
             self.update()
 
     def paintEvent(self, event: QPaintEvent) -> None:
+
         pix = QPixmap.fromImage(self.img)
         self.board.setPixmap(pix)
 
@@ -73,45 +87,71 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.actionClear.triggered.connect(self._clear)
         self.actionSave.triggered.connect(self._save)
         self.actionOpenImg.triggered.connect(self._openImg)
+
         self.preColorBtn.clicked.connect(self._choosePreColor)
         self.backColorBtn.clicked.connect(self._chooseBackColor)
-        self.brushSizeBtn.currentIndexChanged.connect(self._chooseBrushSize)
-        self.lineBtn.clicked.connect(self._toolBoxClicked)
-        self.ellipseBtn
+        self.penSizeBtn.currentIndexChanged.connect(self._choosePenSize)
 
-    def _drawLine(self):
+        list(map(lambda btn:btn.clicked.connect(self._toolBoxClicked),self.toolBtns))
+
+    def _drawLine(self,event):
+        painter = self._initPainter()
+        boardPos = self._getPosFromGlobal(event.pos())
+        painter.drawLine(self.startPoint, boardPos)
+        self.lastPoint = boardPos
+
+
+
+
+    def _drawEllipse(self,event):
+        print('drawEllipse')
+
+    def _drawRect(self,event):
+        print('drawRect')
+        painter = self._initPainter()
+        boardPos = self._getPosFromGlobal(event.pos())
+        painter.drawRect(QRect(self.startPoint,boardPos))
+
+
+    def _drawErase(self,event):
+        self.penColor = self.backColor
+        self._drawPen(event)
+
+    def _drawBucket(self,event):
         pass
 
-    def _drawEllipse(self):
-        pass
-
-    def _drawRect(self):
-        pass
+    def _drawPen(self,event):
+        painter = self._initPainter()
+        boardPos = self._getPosFromGlobal(event.pos())
+        painter.drawLine(self.lastPoint, boardPos)
+        self.lastPoint = boardPos
 
 
     def _toolBoxClicked(self):
-        pass
+        self._refreshButtons()
+        toolBtn = self.sender()
+        toolBtn.setChecked(True)
+        print(toolBtn.text())
 
 
-    def _chooseBrushSize(self):
-        pass
+    def _choosePenSize(self):
+        self.penSize = int(self.penSizeBtn.currentText())
 
     def _choosePreColor(self):
-        self.preColorBtn.setStyleSheet("background-color:%s" % self._getColor())
+        colorName,self.preColor= self._getColor()
+        self.preColorBtn.setStyleSheet("background-color:%s" % colorName)
 
     def _chooseBackColor(self):
-        self.backColorBtn.setStyleSheet("background-color:%s" % self._getColor())
+        colorName,self.backColor= self._getColor()
+        self.backColorBtn.setStyleSheet("background-color:%s" % colorName)
 
     def _getColor(self):
         color = QColorDialog.getColor()
         colorName = color.name()
-        return colorName
+        return colorName,color
 
     def _refreshButtons(self):
-        self.penBtn.setChecked(False)
-        self.brushBtn.setChecked(False)
-        self.lineBtn.setChecked(False)
-        self.ellipseBtn.setChecked(False)
+        [btn.setChecked(False) for btn in self.toolBtns]
 
     def _refreshBoard(self):
         pix = QPixmap.fromImage(self.img)
