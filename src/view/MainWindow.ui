@@ -6,19 +6,23 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>915</width>
-    <height>582</height>
+    <width>971</width>
+    <height>624</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Paint</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../imgs.qrc">
+    <normaloff>:/img/img/icon.png</normaloff>:/img/img/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0">
+   <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,7">
     <item>
      <widget class="QWidget" name="toolBox" native="true">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -41,6 +45,10 @@
          <property name="text">
           <string>画笔</string>
          </property>
+         <property name="icon">
+          <iconset resource="../../imgs.qrc">
+           <normaloff>:/img/img/pen.png</normaloff>:/img/img/pen.png</iconset>
+         </property>
          <property name="iconSize">
           <size>
            <width>32</width>
@@ -57,6 +65,16 @@
          <property name="text">
           <string>喷桶</string>
          </property>
+         <property name="icon">
+          <iconset resource="../../imgs.qrc">
+           <normaloff>:/img/img/bucket.png</normaloff>:/img/img/bucket.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
          <property name="checkable">
           <bool>true</bool>
          </property>
@@ -67,28 +85,42 @@
          <property name="text">
           <string>直线</string>
          </property>
+         <property name="icon">
+          <iconset resource="../../imgs.qrc">
+           <normaloff>:/img/img/line.png</normaloff>:/img/img/line.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
          <property name="checkable">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QToolButton" name="rectBtn">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+       <item row="6" column="0">
+        <widget class="QToolButton" name="ellipseBtn">
          <property name="text">
-          <string>矩形</string>
+          <string>椭圆</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../imgs.qrc">
+           <normaloff>:/img/img/ellipse.png</normaloff>:/img/img/ellipse.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
          </property>
          <property name="checkable">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="6" column="1">
         <widget class="QToolButton" name="eraseButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -99,22 +131,22 @@
          <property name="text">
           <string>橡皮擦</string>
          </property>
+         <property name="icon">
+          <iconset resource="../../imgs.qrc">
+           <normaloff>:/img/img/erase.png</normaloff>:/img/img/erase.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
          <property name="checkable">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="6" column="0" colspan="2">
-        <widget class="QToolButton" name="ellipseBtn">
-         <property name="text">
-          <string>椭圆</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
+       <item row="8" column="0">
         <widget class="QComboBox" name="penSizeBtn">
          <property name="focusPolicy">
           <enum>Qt::ClickFocus</enum>
@@ -159,14 +191,14 @@
          </item>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="8" column="1">
         <widget class="QLabel" name="pxLabel">
          <property name="text">
           <string>px</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="0">
+       <item row="9" column="0">
         <widget class="QPushButton" name="preColorBtn">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -188,13 +220,39 @@
          </property>
         </widget>
        </item>
-       <item row="8" column="1">
+       <item row="9" column="1">
         <widget class="QPushButton" name="backColorBtn">
          <property name="styleSheet">
           <string notr="true">background-color:#FFFFFF</string>
          </property>
          <property name="text">
           <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QToolButton" name="rectBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>矩形</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../imgs.qrc">
+           <normaloff>:/img/img/rect.png</normaloff>:/img/img/rect.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -277,7 +335,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>915</width>
+     <width>971</width>
      <height>22</height>
     </rect>
    </property>
@@ -294,32 +352,60 @@
      <string>编辑</string>
     </property>
     <addaction name="actionClear"/>
+    <addaction name="actionClearDraw"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
+   <property name="icon">
+    <iconset resource="../../imgs.qrc">
+     <normaloff>:/img/img/new.png</normaloff>:/img/img/new.png</iconset>
+   </property>
    <property name="text">
     <string>新建</string>
    </property>
   </action>
   <action name="actionOpenImg">
+   <property name="icon">
+    <iconset resource="../../imgs.qrc">
+     <normaloff>:/img/img/open.png</normaloff>:/img/img/open.png</iconset>
+   </property>
    <property name="text">
     <string>打开图像</string>
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset resource="../../imgs.qrc">
+     <normaloff>:/img/img/save.png</normaloff>:/img/img/save.png</iconset>
+   </property>
    <property name="text">
     <string>保存</string>
    </property>
   </action>
   <action name="actionClear">
+   <property name="icon">
+    <iconset resource="../../imgs.qrc">
+     <normaloff>:/img/img/clear.png</normaloff>:/img/img/clear.png</iconset>
+   </property>
    <property name="text">
     <string>清空</string>
    </property>
   </action>
+  <action name="actionClearDraw">
+   <property name="icon">
+    <iconset resource="../../imgs.qrc">
+     <normaloff>:/img/img/clearImg.png</normaloff>:/img/img/clearImg.png</iconset>
+   </property>
+   <property name="text">
+    <string>清空笔记</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../imgs.qrc"/>
+ </resources>
  <connections/>
 </ui>

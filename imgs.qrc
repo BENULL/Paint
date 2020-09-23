@@ -1,0 +1,18 @@
+<RCC>
+  <qresource prefix="/img">
+    <file>img/bucket.png</file>
+    <file>img/icon.png</file>
+    <file>img/erase.png</file>
+    <file>img/ellipse.png</file>
+    <file>img/line.png</file>
+    <file>img/pen.png</file>
+    <file>img/rect.png</file>
+    <file>img/bucketCur.png</file>
+    <file>img/penCur.png</file>
+    <file>img/clearImg.png</file>
+    <file>img/clear.png</file>
+    <file>img/open.png</file>
+    <file>img/new.png</file>
+    <file>img/save.png</file>
+  </qresource>
+</RCC>
