@@ -10,6 +10,9 @@ class BaseAdjustDialog(QDialog,Ui_baseAdjustDialog):
 
     brightSliderReleased = pyqtSignal(object)
     brightSliderValueChanged = pyqtSignal(object)
+    dialogRejected = pyqtSignal()
+    dialogAccepted = pyqtSignal()
+
 
     def __init__(self,*args,**kwargs):
         super(BaseAdjustDialog, self).__init__(*args,**kwargs)
@@ -36,10 +39,10 @@ class BaseAdjustDialog(QDialog,Ui_baseAdjustDialog):
         self.brightSliderReleased.emit(lightValue)
 
     def _dialogAccepted(self):
-        pass
+        self.dialogAccepted.emit()
 
     def _dialogRejected(self):
-        pass
+        self.dialogRejected.emit()
 
 
 

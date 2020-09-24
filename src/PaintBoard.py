@@ -96,14 +96,26 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         list(map(lambda btn:btn.clicked.connect(self._toolBoxClicked),self.toolBtns))
 
 
-
     def _openBaseAdjustDialog(self):
         self.baseAdjustDialog = BaseAdjustDialog()
+        self.baseAdjustDialog.dialogRejected.connect(self._baseAdjustDialogRejected)
+        self.baseAdjustDialog.dialogAccepted.connect(self._baseAdjustDialogAccepted)
         self.baseAdjustDialog.brightSliderReleased.connect(self._adjustBright)
         self.baseAdjustDialog.show()
 
+    def _baseAdjustDialogAccepted(self):
+        self.adjusting = False
+        self.img = self.bufferImg
+        self.update()
+
+
+    def _baseAdjustDialogRejected(self):
+        self.adjusting = False
+        self.update()
+
     def _adjustBright(self,value):
-        self.img = ImageUtil.adjustBright(self.img,value)
+        self.adjusting = True
+        self.bufferImg = ImageUtil.adjustBright(self.img,value)
         self.update()
 
 
