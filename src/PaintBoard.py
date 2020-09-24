@@ -18,7 +18,7 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.setupUi(self)
         #uic.loadUi('./view/MainWindow.ui',self)
         self._initParam()
-        self._setDefaultBoard()
+        self._initDefaultBoard()
         self._establishConnections()
         self._initPainter()
 
@@ -75,7 +75,7 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         boardPos = self.board.mapFromGlobal(globalPos)
         return boardPos
 
-    def _setDefaultBoard(self):
+    def _initDefaultBoard(self):
         self.img = QImage(self.scrollAreaWidgetContents.size(), QImage.Format_RGB32)
         self.img.fill(Qt.white)
         self.bufferImg = self.img.copy()
@@ -94,12 +94,19 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.baseAdjustBtn.clicked.connect(self._openBaseAdjustDialog)
         list(map(lambda btn:btn.clicked.connect(self._toolBoxClicked),self.toolBtns))
 
+
+
     def _openBaseAdjustDialog(self):
         self.baseAdjustDialog = BaseAdjustDialog()
+        self.baseAdjustDialog.brightSliderReleased.connect(self._adjustBright)
         self.baseAdjustDialog.show()
 
-    def _drawLine(self,event):
+    def _adjustBright(self,value):
+        self.img = ImageUtil.adjustBright(self.img,value)
+        self.update()
 
+
+    def _drawLine(self,event):
         boardPos = self._getPosFromGlobal(event.pos())
         if self.drawing:
             self.bufferImg = self.img.copy()
@@ -126,7 +133,6 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
             self.bufferImg = self.img.copy()
             painter = self._initPainter(board=self.bufferImg)
             painter.drawRect(QRect(self.startPoint, boardPos))
-
         else:
             painter = self._initPainter()
             painter.drawRect(QRect(self.startPoint, self.endPoint))
