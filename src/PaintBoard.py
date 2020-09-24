@@ -31,6 +31,7 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
 
     def _initParam(self):
         self.drawing = False
+        self.adjusting = False
         self.lastPoint = QPoint()
         self.endPoint = QPoint()
         self.penSize = 2
@@ -63,7 +64,7 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
             self.update()
 
     def paintEvent(self, event: QPaintEvent) -> None:
-        if self.drawing and True in [btn.isChecked() for btn in self.toolBtns[2:5]]:
+        if self.drawing and True in [btn.isChecked() for btn in self.toolBtns[2:5]] or self.adjusting:
             self.board.setPixmap(QPixmap.fromImage(self.bufferImg))
         else:
             pix = QPixmap.fromImage(self.img)

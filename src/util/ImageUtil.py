@@ -1,6 +1,6 @@
 # coding = utf-8
 
-from PyQt5.QtGui import QImage,qRed,qGreen,qBlue,qRgba,qAlpha
+from PyQt5.QtGui import QImage,qRed,qGreen,qBlue,qRgba,qAlpha,QColor
 
 def getPixel(x,y,pixels,w):
     i = (x + (y * w)) * 4
@@ -37,15 +37,19 @@ def getCardinalPoints(haveSeen, centerPos,w,h):
     return points
 
 
+
+
 def adjustBright(image:QImage,value) -> QImage:
     width, height = image.width(), image.height()
-    pixels = image.bits().asarray(width*height)
-    for pixel in pixels:
-        red = (qRed(pixel) + value)
-        red = 0x00 if red < 0x00 else 0xff if red > 0xff else red
-        green = (qGreen(pixel) + value)
-        green = 0x00 if green < 0x00 else 0xff if green > 0xff else green
-        blue = (qBlue(pixel) + value)
-        blue = 0x00 if blue < 0x00 else 0xff if blue > 0xff else blue
-        pixel= qRgba(red, green, blue, qAlpha(pixel))
-    return QImage(pixels,width,height,QImage.Format_RGBA64)
+    newImage = QImage(width,height,QImage.Format_RGBA8888)
+    for h in range(height):
+        for w in range(width):
+            pixel = QColor(image.pixel(h,w))
+            red = (pixel.red() + value)
+            red = 0x00 if red < 0x00 else 0xff if red > 0xff else red
+            green = (pixel.green() + value)
+            green = 0x00 if green < 0x00 else 0xff if green > 0xff else green
+            blue = (pixel.blue() + value)
+            blue = 0x00 if blue < 0x00 else 0xff if blue > 0xff else blue
+            newImage.setPixel(h,w,qRgba(red, green, blue, pixel.alpha()))
+    return newImage
