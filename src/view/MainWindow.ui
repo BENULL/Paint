@@ -256,10 +256,10 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="0">
+       <item row="10" column="0" colspan="2">
         <widget class="QPushButton" name="baseAdjustBtn">
          <property name="text">
-          <string>基础调整</string>
+          <string>基础调节</string>
          </property>
         </widget>
        </item>
@@ -407,7 +407,7 @@
      <normaloff>:/img/img/clearImg.png</normaloff>:/img/img/clearImg.png</iconset>
    </property>
    <property name="text">
-    <string>清空笔记</string>
+    <string>还原</string>
    </property>
   </action>
  </widget>

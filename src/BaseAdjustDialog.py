@@ -9,7 +9,10 @@ from functools import partial
 class BaseAdjustDialog(QDialog,Ui_baseAdjustDialog):
 
     brightSliderReleased = pyqtSignal(object)
-    brightSliderValueChanged = pyqtSignal(object)
+    warmSliderReleased = pyqtSignal(object)
+    saturabilitySliderReleased = pyqtSignal(object)
+    contrastSliderReleased = pyqtSignal(object)
+
     dialogRejected = pyqtSignal()
     dialogAccepted = pyqtSignal()
 
@@ -25,18 +28,35 @@ class BaseAdjustDialog(QDialog,Ui_baseAdjustDialog):
         self.dialogBtnBox.accepted.connect(self._dialogAccepted)
         self.dialogBtnBox.rejected.connect(self._dialogRejected)
         [self._buildSliderConnected(slider) for slider in self.sliders]
+        self.brightSlider.sliderReleased.connect(self._brightSliderReleased)
+        self.warmSlider.sliderReleased.connect(self._warmSliderReleased)
+        self.saturabilitySlider.sliderReleased.connect(self._saturabilitySliderReleased)
+        self.contrastSlider.sliderReleased.connect(self._contrastSliderReleased)
 
     def _buildSliderConnected(self,slider):
-        slider.sliderReleased.connect(self._brightSliderReleased)
         slider.valueChanged.connect(partial(self._sliderValueChanged,slider))
 
     def _sliderValueChanged(self,slider):
-        self.sliderLabels[self.sliders.index(slider)].setNum(self.brightSlider.value())
+        self.sliderLabels[self.sliders.index(slider)].setNum(slider.value())
 
     def _brightSliderReleased(self):
-        lightValue = self.brightSlider.value()
-        self.brightLabel.setNum(lightValue)
-        self.brightSliderReleased.emit(lightValue)
+        brightValue = self.brightSlider.value()
+        self.brightLabel.setNum(brightValue)
+        self.brightSliderReleased.emit(brightValue)
+    def _contrastSliderReleased(self):
+        contrastValue = self.contrastSlider.value()
+        self.contrastLabel.setNum(contrastValue)
+        self.contrastSliderReleased.emit(contrastValue)
+
+    def _warmSliderReleased(self):
+        warmValue = self.warmSlider.value()
+        self.warmLabel.setNum(warmValue)
+        self.warmSliderReleased.emit(warmValue)
+
+    def _saturabilitySliderReleased(self):
+        saturationValue = self.saturabilitySlider.value()
+        self.saturabilityLabel.setNum(saturationValue)
+        self.saturabilitySliderReleased.emit(saturationValue)
 
     def _dialogAccepted(self):
         self.dialogAccepted.emit()

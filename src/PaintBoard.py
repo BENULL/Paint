@@ -101,6 +101,10 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.baseAdjustDialog.dialogRejected.connect(self._baseAdjustDialogRejected)
         self.baseAdjustDialog.dialogAccepted.connect(self._baseAdjustDialogAccepted)
         self.baseAdjustDialog.brightSliderReleased.connect(self._adjustBright)
+        self.baseAdjustDialog.warmSliderReleased.connect(self._adjustWarm)
+        self.baseAdjustDialog.saturabilitySliderReleased.connect(self._adjustSaturation)
+        self.baseAdjustDialog.contrastSliderReleased.connect(self._adjustContrast)
+
         self.baseAdjustDialog.show()
 
     def _baseAdjustDialogAccepted(self):
@@ -113,11 +117,25 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.adjusting = False
         self.update()
 
+    def _adjustContrast(self,value):
+        self.adjusting = True
+        self.bufferImg = ImageUtil.adjustContrast(self.img, value)
+        self.update()
+
     def _adjustBright(self,value):
         self.adjusting = True
         self.bufferImg = ImageUtil.adjustBright(self.img,value)
         self.update()
 
+    def _adjustWarm(self,value):
+        self.adjusting = True
+        self.bufferImg = ImageUtil.adjustWarm(self.img,value)
+        self.update()
+
+    def _adjustSaturation(self,value):
+        self.adjusting = True
+        self.bufferImg = ImageUtil.adjustSaturation(self.img, value)
+        self.update()
 
     def _drawLine(self,event):
         boardPos = self._getPosFromGlobal(event.pos())
