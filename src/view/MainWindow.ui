@@ -32,7 +32,7 @@
         <enum>QLayout::SetFixedSize</enum>
        </property>
        <property name="labelAlignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
        </property>
        <property name="formAlignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -253,6 +253,13 @@
          </property>
          <property name="checkable">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <widget class="QPushButton" name="baseAdjustBtn">
+         <property name="text">
+          <string>基础调整</string>
          </property>
         </widget>
        </item>

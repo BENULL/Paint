@@ -1,6 +1,7 @@
 # coding = utf-8
 
 from src.view.MainWindow import Ui_MainWindow
+from src.BaseAdjustDialog import BaseAdjustDialog
 from PyQt5.QtWidgets import (QWidget,QApplication,QMainWindow,QFileDialog)
 from PyQt5 import uic
 import sys
@@ -90,9 +91,12 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.preColorBtn.clicked.connect(self._choosePreColor)
         self.backColorBtn.clicked.connect(self._chooseBackColor)
         self.penSizeBtn.currentIndexChanged.connect(self._choosePenSize)
-
+        self.baseAdjustBtn.clicked.connect(self._openBaseAdjustDialog)
         list(map(lambda btn:btn.clicked.connect(self._toolBoxClicked),self.toolBtns))
 
+    def _openBaseAdjustDialog(self):
+        self.baseAdjustDialog = BaseAdjustDialog()
+        self.baseAdjustDialog.show()
 
     def _drawLine(self,event):
 
