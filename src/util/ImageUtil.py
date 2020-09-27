@@ -136,7 +136,7 @@ def sharpen(image:QImage):
     src = QImageToCvMat(image)
 
     kernel = np.array([[0, -1, 0],
-                       [-1, 4, -1],
+                       [-1, 5, -1],
                        [0, -1, 0]])
 
     dst = cv.filter2D(src, -1, kernel)
