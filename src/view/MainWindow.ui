@@ -201,14 +201,14 @@
          </property>
         </widget>
        </item>
-       <item row="12" column="0" colspan="2">
+       <item row="16" column="0" colspan="2">
         <widget class="QPushButton" name="cannyBtn">
          <property name="text">
           <string>边缘检测</string>
          </property>
         </widget>
        </item>
-       <item row="13" column="0" colspan="2">
+       <item row="17" column="0" colspan="2">
         <widget class="QPushButton" name="blurBtn">
          <property name="text">
           <string>模糊</string>
@@ -277,10 +277,31 @@
          </property>
         </widget>
        </item>
-       <item row="14" column="0" colspan="2">
+       <item row="18" column="0" colspan="2">
         <widget class="QPushButton" name="sharpenBtn">
          <property name="text">
           <string>锐化</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0" colspan="2">
+        <widget class="QPushButton" name="grayBtn">
+         <property name="text">
+          <string>灰度化</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="0" colspan="2">
+        <widget class="QPushButton" name="invertBtn">
+         <property name="text">
+          <string>反相</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0" colspan="2">
+        <widget class="QPushButton" name="binaryBtn">
+         <property name="text">
+          <string>二值化</string>
          </property>
         </widget>
        </item>

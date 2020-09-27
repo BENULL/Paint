@@ -3,7 +3,7 @@
 from PyQt5.QtGui import QImage,qRed,qGreen,qBlue,qRgba,qAlpha,QColor
 import cv2 as cv
 import numpy as np
-
+import copy
 
 def bound(low,high,value):
     return low if value < low else high if value > high else value
@@ -136,7 +136,7 @@ def sharpen(image:QImage):
     src = QImageToCvMat(image)
 
     kernel = np.array([[0, -1, 0],
-                       [-1, 5, -1],
+                       [-1, 4, -1],
                        [0, -1, 0]])
 
     dst = cv.filter2D(src, -1, kernel)
@@ -151,7 +151,41 @@ def canny(image:QImage):
     edges = cv.Canny(gray, 50, 150)
     return CvMatToQImage(edges)
 
+def gray(image:QImage):
+    src = QImageToCvMat(image)
+    gray = cv.cvtColor(src,cv.COLOR_RGB2GRAY)
+    return CvMatToQImage(gray)
 
+def binaryzation(image:QImage):
+    src = QImageToCvMat(image)
+    gray = cv.cvtColor(src, cv.COLOR_RGB2GRAY)
+    ret,thresh1 = cv.threshold(gray,127,255,cv.THRESH_BINARY)
+    return CvMatToQImage(thresh1)
+
+def invert(image:QImage):
+    src = QImageToCvMat(image)
+    # res = cv.bitwise_not(src)
+    res = src.copy()
+    print(res.shape)
+    if len(src.shape) == 2:
+        rows, columns = src.shape
+        for row in range(rows):
+            for col in range(columns):
+                res[row, col] = (255 - src[row, col])
+    else:
+        rows, columns, channels = src.shape
+        for row in range(rows):
+            for col in range(columns):
+                res[row, col] = (255 - src[row, col][0], 255 - src[row, col][1], 255 - src[row, col][2],src[row, col][3])
+    return CvMatToQImage(res)
+
+def emboss(image:QImage):
+    src = QImageToCvMat(image)
+    kernel = np.array([[-2, -1, 0],
+                       [-1, 1, 1],
+                       [0, 1, 2]])
+    dst = cv.filter2D(src, -1, kernel)
+    return CvMatToQImage(dst)
 
 
 

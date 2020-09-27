@@ -102,7 +102,9 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.blurBtn.clicked.connect(self._blur)
         self.sharpenBtn.clicked.connect(self._sharpen)
         self.cannyBtn.clicked.connect(self._canny)
-
+        self.binaryBtn.clicked.connect(self._binaryzation)
+        self.invertBtn.clicked.connect(self._invert)
+        self.grayBtn.clicked.connect(self._gray)
         list(map(lambda btn:btn.clicked.connect(self._toolBoxClicked),self.toolBtns))
 
 
@@ -225,6 +227,18 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
 
     def _sharpen(self):
         self.img = ImageUtil.sharpen(self.img)
+        self._refreshBoard()
+
+    def _gray(self):
+        self.img = ImageUtil.gray(self.img)
+        self._refreshBoard()
+
+    def _invert(self):
+        self.img = ImageUtil.invert(self.img)
+        self._refreshBoard()
+
+    def _binaryzation(self):
+        self.img = ImageUtil.binaryzation(self.img)
         self._refreshBoard()
 
     def _refreshButtons(self):
