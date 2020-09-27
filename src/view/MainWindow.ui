@@ -100,6 +100,32 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="1">
+        <widget class="QToolButton" name="rectBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>矩形</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../imgs.qrc">
+           <normaloff>:/img/img/rect.png</normaloff>:/img/img/rect.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
        <item row="6" column="0">
         <widget class="QToolButton" name="ellipseBtn">
          <property name="text">
@@ -143,6 +169,56 @@
          </property>
          <property name="checkable">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QPushButton" name="preColorBtn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #000000</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0" colspan="2">
+        <widget class="QPushButton" name="baseAdjustBtn">
+         <property name="text">
+          <string>图像调节</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0" colspan="2">
+        <widget class="QPushButton" name="cannyBtn">
+         <property name="text">
+          <string>边缘检测</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0" colspan="2">
+        <widget class="QPushButton" name="blurBtn">
+         <property name="text">
+          <string>模糊</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLabel" name="pxLabel">
+         <property name="text">
+          <string>px</string>
          </property>
         </widget>
        </item>
@@ -191,35 +267,6 @@
          </item>
         </widget>
        </item>
-       <item row="8" column="1">
-        <widget class="QLabel" name="pxLabel">
-         <property name="text">
-          <string>px</string>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="0">
-        <widget class="QPushButton" name="preColorBtn">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: #000000</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
        <item row="9" column="1">
         <widget class="QPushButton" name="backColorBtn">
          <property name="styleSheet">
@@ -230,36 +277,10 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QToolButton" name="rectBtn">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+       <item row="14" column="0" colspan="2">
+        <widget class="QPushButton" name="sharpenBtn">
          <property name="text">
-          <string>矩形</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../../imgs.qrc">
-           <normaloff>:/img/img/rect.png</normaloff>:/img/img/rect.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0" colspan="2">
-        <widget class="QPushButton" name="baseAdjustBtn">
-         <property name="text">
-          <string>基础调节</string>
+          <string>锐化</string>
          </property>
         </widget>
        </item>
@@ -361,7 +382,23 @@
     <addaction name="actionClear"/>
     <addaction name="actionClearDraw"/>
    </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>图像</string>
+    </property>
+    <widget class="QMenu" name="menu_4">
+     <property name="title">
+      <string>旋转</string>
+     </property>
+     <addaction name="actionClockWise"/>
+     <addaction name="actionAntiClockWise"/>
+     <addaction name="actionVerFilp"/>
+     <addaction name="actionHorFilp"/>
+    </widget>
+    <addaction name="menu_4"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menu_3"/>
    <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -408,6 +445,26 @@
    </property>
    <property name="text">
     <string>还原</string>
+   </property>
+  </action>
+  <action name="actionClockWise">
+   <property name="text">
+    <string>顺时针</string>
+   </property>
+  </action>
+  <action name="actionAntiClockWise">
+   <property name="text">
+    <string>逆时针</string>
+   </property>
+  </action>
+  <action name="actionVerFilp">
+   <property name="text">
+    <string>垂直</string>
+   </property>
+  </action>
+  <action name="actionHorFilp">
+   <property name="text">
+    <string>水平</string>
    </property>
   </action>
  </widget>

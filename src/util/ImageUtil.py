@@ -1,6 +1,8 @@
 # coding = utf-8
 
 from PyQt5.QtGui import QImage,qRed,qGreen,qBlue,qRgba,qAlpha,QColor
+import cv2
+
 
 def bound(low,high,value):
     return low if value < low else high if value > high else value
@@ -103,6 +105,14 @@ def adjustContrast(image:QImage,value) -> QImage:
             newImage.setPixel(h, w, qRgba(*color, pixel.alpha()))
     return newImage
 
+def blur(image:QImage):
+    pass
+
+def sharpen(image:QImage):
+    pass
+
+def canny(image:QImage):
+    pass
 
 
 

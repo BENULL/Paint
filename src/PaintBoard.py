@@ -9,6 +9,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.Qt import *
 from src.util import ImageUtil
+from functools import partial
 
 
 class PaintBoard(QMainWindow,Ui_MainWindow):
@@ -89,10 +90,19 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.actionSave.triggered.connect(self._save)
         self.actionOpenImg.triggered.connect(self._openImg)
         self.actionClearDraw.triggered.connect(self._clearDraw)
+        self.actionClockWise.triggered.connect(partial(self._wiseAction,'clock'))
+        self.actionAntiClockWise.triggered.connect(partial(self._wiseAction,'antiClock'))
+        self.actionVerFilp.triggered.connect(partial(self._wiseAction,'verFilp'))
+        self.actionHorFilp.triggered.connect(partial(self._wiseAction,'horFilp'))
         self.preColorBtn.clicked.connect(self._choosePreColor)
         self.backColorBtn.clicked.connect(self._chooseBackColor)
         self.penSizeBtn.currentIndexChanged.connect(self._choosePenSize)
         self.baseAdjustBtn.clicked.connect(self._openBaseAdjustDialog)
+
+        self.blurBtn.clicked.connect(self._blur)
+        self.sharpenBtn.clicked.connect(self._sharpen)
+        self.cannyBtn.clicked.connect(self._canny)
+
         list(map(lambda btn:btn.clicked.connect(self._toolBoxClicked),self.toolBtns))
 
 
@@ -104,14 +114,12 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.baseAdjustDialog.warmSliderReleased.connect(self._adjustWarm)
         self.baseAdjustDialog.saturabilitySliderReleased.connect(self._adjustSaturation)
         self.baseAdjustDialog.contrastSliderReleased.connect(self._adjustContrast)
-
         self.baseAdjustDialog.show()
 
     def _baseAdjustDialogAccepted(self):
         self.adjusting = False
         self.img = self.bufferImg
         self.update()
-
 
     def _baseAdjustDialogRejected(self):
         self.adjusting = False
@@ -207,6 +215,15 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         colorName = color.name()
         return colorName,color
 
+    def _blur(self):
+        pass
+
+    def _canny(self):
+        pass
+
+    def _sharpen(self):
+        pass
+
     def _refreshButtons(self):
         [btn.setChecked(False) for btn in self.toolBtns]
 
@@ -229,16 +246,26 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.img = self.oriImg.copy()
         self._refreshBoard()
 
+    def _wiseAction(self,action):
+        if action == 'clock':
+            transform = QTransform()
+            transform.rotate(90)
+            self.img = self.img.transformed(transform)
+        elif action == 'antiClock':
+            transform = QTransform()
+            transform.rotate(-90)
+            self.img = self.img.transformed(transform)
+        elif action == 'verFilp':
+            self.img = self.img.mirrored(True,False)
+        else:
+            self.img = self.img.mirrored(False,True)
+        self._refreshBoard()
 
     def _openImg(self):
         fileName, fileType = QFileDialog.getOpenFileName(self,"选取文件","All Files (*)")
         self.img = QImage(fileName)
         self.oriImg = self.img.copy()
         self._refreshBoard()
-
-
-
-
 
 def main():
     app = QApplication(sys.argv)
