@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(971, 624)
+        MainWindow.resize(971, 631)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/img/img/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -145,6 +145,9 @@ class Ui_MainWindow(object):
         self.binaryBtn = QtWidgets.QPushButton(self.toolBox)
         self.binaryBtn.setObjectName("binaryBtn")
         self.formLayout.setWidget(13, QtWidgets.QFormLayout.SpanningRole, self.binaryBtn)
+        self.embossBtn = QtWidgets.QPushButton(self.toolBox)
+        self.embossBtn.setObjectName("embossBtn")
+        self.formLayout.setWidget(15, QtWidgets.QFormLayout.SpanningRole, self.embossBtn)
         self.horizontalLayout_3.addWidget(self.toolBox)
         self.line = QtWidgets.QFrame(self.centralwidget)
         self.line.setFrameShape(QtWidgets.QFrame.VLine)
@@ -270,6 +273,7 @@ class Ui_MainWindow(object):
         self.grayBtn.setText(_translate("MainWindow", "灰度化"))
         self.invertBtn.setText(_translate("MainWindow", "反相"))
         self.binaryBtn.setText(_translate("MainWindow", "二值化"))
+        self.embossBtn.setText(_translate("MainWindow", "浮雕"))
         self.menu.setTitle(_translate("MainWindow", "文件"))
         self.menu_2.setTitle(_translate("MainWindow", "编辑"))
         self.menu_3.setTitle(_translate("MainWindow", "图像"))

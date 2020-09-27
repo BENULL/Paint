@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>971</width>
-    <height>624</height>
+    <height>631</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -302,6 +302,13 @@
         <widget class="QPushButton" name="binaryBtn">
          <property name="text">
           <string>二值化</string>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="0" colspan="2">
+        <widget class="QPushButton" name="embossBtn">
+         <property name="text">
+          <string>浮雕</string>
          </property>
         </widget>
        </item>

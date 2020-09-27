@@ -105,6 +105,7 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         self.binaryBtn.clicked.connect(self._binaryzation)
         self.invertBtn.clicked.connect(self._invert)
         self.grayBtn.clicked.connect(self._gray)
+        self.embossBtn.clicked.connect(self._emboss)
         list(map(lambda btn:btn.clicked.connect(self._toolBoxClicked),self.toolBtns))
 
 
@@ -235,6 +236,10 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
 
     def _invert(self):
         self.img = ImageUtil.invert(self.img)
+        self._refreshBoard()
+
+    def _emboss(self):
+        self.img = ImageUtil.emboss(self.img)
         self._refreshBoard()
 
     def _binaryzation(self):

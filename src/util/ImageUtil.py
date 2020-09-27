@@ -166,7 +166,6 @@ def invert(image:QImage):
     src = QImageToCvMat(image)
     # res = cv.bitwise_not(src)
     res = src.copy()
-    print(res.shape)
     if len(src.shape) == 2:
         rows, columns = src.shape
         for row in range(rows):
