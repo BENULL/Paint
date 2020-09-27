@@ -216,13 +216,16 @@ class PaintBoard(QMainWindow,Ui_MainWindow):
         return colorName,color
 
     def _blur(self):
-        pass
+        self.img = ImageUtil.blur(self.img)
+        self._refreshBoard()
 
     def _canny(self):
-        pass
+        self.img = ImageUtil.canny(self.img)
+        self._refreshBoard()
 
     def _sharpen(self):
-        pass
+        self.img = ImageUtil.sharpen(self.img)
+        self._refreshBoard()
 
     def _refreshButtons(self):
         [btn.setChecked(False) for btn in self.toolBtns]

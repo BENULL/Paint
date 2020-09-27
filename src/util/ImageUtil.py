@@ -1,7 +1,8 @@
 # coding = utf-8
 
 from PyQt5.QtGui import QImage,qRed,qGreen,qBlue,qRgba,qAlpha,QColor
-import cv2
+import cv2 as cv
+import numpy as np
 
 
 def bound(low,high,value):
@@ -43,7 +44,7 @@ def getCardinalPoints(haveSeen, centerPos,w,h):
 # 调整亮度
 def adjustBright(image:QImage,value) -> QImage:
     width, height = image.width(), image.height()
-    newImage = QImage(width,height,QImage.Format_RGBA64)
+    newImage = QImage(width,height,QImage.Format_RGBA8888)
     for h in range(height):
         for w in range(width):
             pixel = QColor(image.pixel(h,w))
@@ -59,7 +60,7 @@ def adjustBright(image:QImage,value) -> QImage:
 # 调整暖色调
 def adjustWarm(image:QImage,value) -> QImage:
     width, height = image.width(), image.height()
-    newImage = QImage(width, height, QImage.Format_RGBA64)
+    newImage = QImage(width, height, QImage.Format_RGBA8888)
     for h in range(height):
         for w in range(width):
             pixel = QColor(image.pixel(h, w))
@@ -78,7 +79,7 @@ def adjustWarm(image:QImage,value) -> QImage:
 # 调整饱和度
 def adjustSaturation(image:QImage,value) -> QImage:
     width, height = image.width(), image.height()
-    newImage = QImage(width, height, QImage.Format_RGBA64)
+    newImage = QImage(width, height, QImage.Format_RGBA8888)
     for h in range(height):
         for w in range(width):
             pixel = QColor(image.pixel(h, w)).toHsl()
@@ -93,7 +94,7 @@ def adjustSaturation(image:QImage,value) -> QImage:
 # 调整对比度
 def adjustContrast(image:QImage,value) -> QImage:
     width, height = image.width(), image.height()
-    newImage = QImage(width, height, QImage.Format_RGBA64)
+    newImage = QImage(width, height, QImage.Format_RGBA8888)
     if value >= 0:
         value = 1 / (1 - value / 100.0) - 1
     else:
@@ -105,14 +106,51 @@ def adjustContrast(image:QImage,value) -> QImage:
             newImage.setPixel(h, w, qRgba(*color, pixel.alpha()))
     return newImage
 
+
+def QImageToCvMat(incomingImage):
+    incomingImage = incomingImage.convertToFormat(QImage.Format_RGBA8888)
+    width = incomingImage.width()
+    height = incomingImage.height()
+    ptr = incomingImage.bits()
+    ptr.setsize(height * width * 4)
+    arr = np.frombuffer(ptr, np.uint8).reshape((height, width, 4))
+    return arr
+
+def CvMatToQImage(cvMat):
+    if len(cvMat.shape) == 2:
+        # 灰度图是单通道，所以需要用Format_Indexed8
+        rows, columns = cvMat.shape
+        bytesPerLine = columns
+        return QImage(cvMat.data, columns, rows, bytesPerLine, QImage.Format_Indexed8)
+    else:
+        rows, columns, channels = cvMat.shape
+        bytesPerLine = channels * columns
+        return QImage(cvMat.data, columns, rows, bytesPerLine, QImage.Format_RGBA8888)
+
 def blur(image:QImage):
-    pass
+    src = QImageToCvMat(image)
+    blurImg = cv.GaussianBlur(src, (0, 0), sigmaX=15)
+    return CvMatToQImage(blurImg)
 
 def sharpen(image:QImage):
-    pass
+    src = QImageToCvMat(image)
+
+    kernel = np.array([[0, -1, 0],
+                       [-1, 5, -1],
+                       [0, -1, 0]])
+
+    dst = cv.filter2D(src, -1, kernel)
+
+    # blurImg = cv.GaussianBlur(src, (0, 0), 5)
+    # usm = cv.addWeighted(src, 1.5, blurImg, -0.5, 0)
+    return CvMatToQImage(dst)
 
 def canny(image:QImage):
-    pass
+    blurred = cv.GaussianBlur(QImageToCvMat(image), (3, 3), 0)
+    gray = cv.cvtColor(blurred, cv.COLOR_RGB2GRAY)
+    edges = cv.Canny(gray, 50, 150)
+    return CvMatToQImage(edges)
+
 
 
 
