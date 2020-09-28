@@ -71,7 +71,7 @@ def adjustWarm(image:QImage,value) -> QImage:
                 green += value
                 green = bound(0,255,green)
             else:
-                blue += value
+                blue += abs(value)
                 blue = bound(0,255,blue)
             newImage.setPixel(h, w, qRgba(red, green, blue, pixel.alpha()))
     return newImage
