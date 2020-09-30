@@ -151,45 +151,42 @@ def QImageToCvMat(incomingImage):
 ### 绘画
 
 
-![](https://b1.sbimg.org/file/chevereto-jia/2020/09/30/GZ6Oo.png)
-
-
-
+![](https://github.com/BENULL/Resource/raw/master/paint1.png)
 
 
 ### 油漆桶效果
 
-![](https://sbimg.cn/images/2020/09/30/GZpxa.png)
+![](https://github.com/BENULL/Resource/raw/master/paint2.png)
 
 ### 图像处理部分展示
 
 ### 原图
 
-![](https://b1.sbimg.org/file/chevereto-jia/2020/09/30/GZGDl.png)
+![](https://github.com/BENULL/Resource/raw/master/paint3.png)
 
 ### 亮度调节
 
-![](https://b1.sbimg.org/file/chevereto-jia/2020/09/30/GZ3zw.png)
+![](https://github.com/BENULL/Resource/raw/master/paint4.png)
 
 ### 色调调节
 
-![](https://sbimg.cn/images/2020/09/30/GZmuM.png)
+![](https://github.com/BENULL/Resource/raw/master/paint5.png)
 
 
 
 ### 反相
 
-![](https://b1.sbimg.org/file/chevereto-jia/2020/09/30/GZoGT.png)
+![](https://github.com/BENULL/Resource/raw/master/paint56.png)
 
 
 
 ### 灰度化
 
-![](https://sbimg.cn/images/2020/09/30/GZ0mR.png)
+![](https://github.com/BENULL/Resource/raw/master/paint8.png)
 
 ### 二值化
 
-![](https://sbimg.cn/images/2020/09/30/GZ2dI.png)
+![](https://github.com/BENULL/Resource/raw/master/paint9.png)
 
 ### 边缘检测
 
