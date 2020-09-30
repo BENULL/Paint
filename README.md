@@ -182,7 +182,7 @@ def QImageToCvMat(incomingImage):
 
 ### 灰度化
 
-![](https://github.com/BENULL/Resource/raw/master/paint8.png)
+![](https://github.com/BENULL/Resource/raw/master/paint8png.png)
 
 ### 二值化
 
