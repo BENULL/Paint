@@ -193,16 +193,17 @@ def QImageToCvMat(incomingImage):
 
 ### 边缘检测
 
-![](https://sbimg.cn/images/2020/09/30/GZCZK.png)
-
-
-
+![](https://github.com/BENULL/Resource/raw/master/paint10.png)
 
 
 ## 部分参考
 
-[https://www.cnblogs.com/lfri/p/10599420.html](https://www.cnblogs.com/lfri/p/10599420.html)[https://blog.csdn.net/qq_43444349/article/details/106602543](https://blog.csdn.net/qq_43444349/article/details/106602543)
+[https://www.cnblogs.com/lfri/p/10599420.html](https://www.cnblogs.com/lfri/p/10599420.html)
+
+[https://blog.csdn.net/qq_43444349/article/details/106602543](https://blog.csdn.net/qq_43444349/article/details/106602543)
+
 [https://www.pianshen.com/article/172962944/](https://www.pianshen.com/article/172962944/)
+
 [https://blog.csdn.net/lzwarhang/article/details/93209166](https://blog.csdn.net/lzwarhang/article/details/93209166)
 
 ## 联系
