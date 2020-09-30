@@ -176,7 +176,7 @@ def QImageToCvMat(incomingImage):
 
 ### 反相
 
-![](https://github.com/BENULL/Resource/raw/master/paint56.png)
+![](https://github.com/BENULL/Resource/raw/master/paint56png.png)
 
 
 
